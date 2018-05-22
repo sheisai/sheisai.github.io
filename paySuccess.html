@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <META HTTP-EQUIV="pragma" CONTENT="no-cache"> 
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate"> 
+    <META HTTP-EQUIV="expires" CONTENT="0">
+    <title>支付成功</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .success-box {
+            width: 40%;
+            margin: 25% auto;
+        }
+
+        .logo {
+            display: block;
+            width: 28px;
+            margin: 0 auto 30px;
+        }
+
+        .back-box {
+            width: 90%;
+            position: fixed;
+            bottom:7%;
+            left:50%;
+            margin-left: -45%;
+            background-color: #2196f3;
+            color: #fff;
+            padding: 12px 1px;
+            border-radius: 30px;
+        }
+
+        .back-box:hover {
+            background-color: #2483ce;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="success-box">
+        <img src="./ceshiLOGO.png" class="logo">
+        <span>支付成功</span>
+    </div>
+    <div class="back-box">
+        （<span class="second">5</span>）返回
+    </div>
+</body>
+<script>
+    window.onload=function(){
+        // 倒计时秒数
+        var secondDom=document.getElementsByClassName('second')[0];
+        // 返回按钮
+        var backBoxDom=document.getElementsByClassName('back-box')[0];
+
+        var count = 4;
+        var time1 = setInterval(function () {
+            if (count > 0) {
+                secondDom.innerText=count--;
+            } else {
+                clearInterval(time1);
+                secondDom.innerText=0;
+                pathTo();
+            }
+        }, 1000);
+
+        // 跳转方法
+        var pathTo = function () {
+            var nowType=phoneTypeTest();
+            // alert(nowType);
+            if(nowType=='Android'){
+                // alert(1);
+                window.android.paySuccess();
+                // window.android.showMsg("来自html的提示文字");
+            }else if(nowType=='iPhone'){             
+                // alert(3);                
+                window.webkit.messageHandlers.paySuccess.postMessage(null);
+            }          
+        }
+
+         // 判断手机型号
+        var phoneTypeTest=function(){
+            var u = navigator.userAgent;
+            // console.log(u);
+            if (u.indexOf('Android') > -1 || u.indexOf('Adr') > -1) {//安卓手机
+                return "Android";
+            } else if (!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {//苹果手机
+                return "iPhone";
+            } else {
+                return false;
+            }
+        }
+        
+        // 点击返回
+        backBoxDom.onclick=function () {
+            if(time1){
+                clearInterval(time1);                
+            }
+            pathTo();
+        };
+    }
+</script>
+
+</html>
