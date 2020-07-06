@@ -9,7 +9,10 @@
     <script >
         function callAndroid(){
         // 由于对象映射，所以调用test对象等于调用Android映射的对象
-            window.android.finishPage();
+            
+            if(window.android.finishPage){
+                window.android.finishPage();
+            }
          }
     </script>
 </head>
