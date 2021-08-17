@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.antonio.deeplinks",
+    "sha256_cert_fingerprints":
+    ["EB:37:DB:C1:DC:51:DE:6B:3E:1C:81:38:89:1C:54:D9:A4:94:A3:B0:8C:A9:7F:68:28:35:D6:7D:3F:E7:BF:EE"]
+  }
+}]
